@@ -1,3 +1,7 @@
+#ifndef _VISUALS_
+#define _VISUALS_
+
+
 #define RED 1
 #define GREEN 2
 #define BLUE 3
@@ -53,3 +57,5 @@ void solar_system(float rotationAngle, float transparency);
 
 void stars(float transparencyStars, float position[][3]);
 // Function for creating Stars
+
+#endif
