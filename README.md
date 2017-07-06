@@ -1,7 +1,18 @@
-# OpenGL_SolarSystem
+## Overview
 
-A simple solar system using OpenGL and Glut. 
-The solar system includes a sun, 4 planets that rotating around him and some stars as the background.
-I used an .obj file for the planets, from which i parse the data for the planet's shape.
-With the key "Q" you can exit the program and with key "P" you can pause it.
-Also with keys "W", "A", "S", "D" you can move the camera up, left, down and right accordingly.
+A solar system implemented in OpenGL and GLUT. Inlcudes a sun as the center of the system, four rotating planets with different size and colors and some stars as the background. A .obj file is used to get the shape of planets.
+<br />
+
+With the following keys you can control the animation as described below:
+
+- "Q": Exit the program.
+- "P": Pause the animation.
+- "W": Move the camera up.
+- "A": Move the camera to the left.
+- "D": Move the camera to the right.
+- "S": Move the camera down.
+
+<br />
+
+
+![Solar system](https://github.com/chanioxaris/OpenGL-Solar-System/blob/master/img/solar.png)
