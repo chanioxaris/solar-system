@@ -8,6 +8,8 @@
 #include "glut.h"  
 #include "visuals.h"  
 
+using namespace std;
+
 // Model Loader
 model md;
 
@@ -37,11 +39,10 @@ float StarPos[20][3] =
 };
 
 
-using namespace std;
-
 void Render()
-{    
-	if (!paused) {
+	{    
+	if (!paused) 
+		{
 		//CLEARS FRAME BUFFER ie COLOR BUFFER& DEPTH BUFFER (1.0)
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);  // Clean up the colour of the window
 															 // and the depth buffer
@@ -59,97 +60,106 @@ void Render()
 
 		glutSwapBuffers();									// Buffer Swap									  
 		}	
-}
+	}
 
 //-----------------------------------------------------------
 
 void Resize(int w, int h)
-{ 
-  // define the visible area of the window ( in pixels )
-  if (h==0) h=1;
-  glViewport(0,0,w,h); 
+	{ 
+	// define the visible area of the window ( in pixels )
+	if (h == 0) 
+		h = 1;
+  
+	glViewport(0, 0, w, h); 
 
-  // Setup viewing volume
+	// Setup viewing volume
 
-  glMatrixMode(GL_PROJECTION); 
-  glLoadIdentity();
+	glMatrixMode(GL_PROJECTION); 
+	glLoadIdentity();
  
-  gluPerspective(60.0, (float)w/(float)h, 1.0, 500.0);
-}
+	gluPerspective(60.0, (float)w/(float)h, 1.0, 500.0);
+	}
 
 
 void Idle()
-{
-	if (!paused) {
+	{
+	if (!paused) 
+		{
 		// Planets Rotations
 		rotationAngle += 0.15;
 
 		// Sun brightness
 		if (grow == 0)
-		{
+			{
 			transparency += 0.002;
 			if (transparency < 1.0)
 				grow = 0;
 			else
 				grow = 1;
-		}
+			}
 		else
-		{
+			{
 			transparency -= 0.002;
 			if (transparency > 0.0)
 				grow = 1;
 			else
 				grow = 0;
-		}
+			}
 
 		// Star brightness
 		if (growStars == 0)
-		{
+			{
 			transparencyStars += 0.1;
 			if (transparencyStars < 1.0)
 				growStars = 0;
 			else
 				growStars = 1;
-		}
+			}
 		else
-		{
+			{
 			transparencyStars -= 0.001;
 			if (transparencyStars > 0.0)
 				growStars = 1;
 			else
 				growStars = 0;
-		}
+			}
 
 		glutPostRedisplay();
+		}
 	}
-}
 
+	
 void Keyboard(unsigned char key,int x,int y)
-{
-	switch(key)
 	{
-		case 'q' : exit(0);
+	switch(key)
+		{
+		case 'q' : 
+			exit(0);
 			break;
-		case 'p': paused = !paused;
+		case 'p': 
+			paused = !paused;
 			break;
-		case 'a' : rotateX += 0.5f;
+		case 'a' : 
+			rotateX += 0.5f;
 			break;
-		case 'd' : rotateX -= 0.5f;
+		case 'd' : 
+			rotateX -= 0.5f;
 			break;
-		case 'w':  rotateY -= 0.5f;
+		case 'w':  
+			rotateY -= 0.5f;
 			break;
-		case 's':  rotateY += 0.5f;
+		case 's':  
+			rotateY += 0.5f;
 			break;
 		default : 
 			break;
-	}
+		}
 	glutPostRedisplay();
-}
-
+	}
 
 
 void Setup()  
-{ 
+	{ 
 	ReadFile(&md);
 
 	//Parameter handling
@@ -188,12 +198,12 @@ void Setup()
 
 	// Black background
 	glClearColor(0.0f,0.0f,0.0f,1.0f);
-}
+	}
 
 
 
 void ReadFile(model *md)
-{
+	{
 	ifstream obj_file("planet.obj");								// Open the file for reading planet.TXT  
 
 	string tmp;
@@ -202,7 +212,8 @@ void ReadFile(model *md)
 	md->vertices = 9122;											// Get the number of vertices
 	md->faces = 18240;												// Get the number of faces
 
-	if (obj_file.fail()) {
+	if (obj_file.fail()) 
+		{
 		cout << "Failed to open the file" << endl;
 		exit(1);
 		}
@@ -210,26 +221,24 @@ void ReadFile(model *md)
 	obj_file >> tmp;
 
 	while (tmp.compare("v"))									
-	{
 		obj_file >> tmp;
-	}
+
 
 	for (int i = 0; i < md->vertices ; i++)							// Get the vertex coordinates
-	{              
+		{              
 		obj_file >> md->obj_points[i].x;
 		obj_file >> md->obj_points[i].y;
 		obj_file >> md->obj_points[i].z;
 		
 		obj_file >> tmp;
-	}
-
-	while (tmp.compare("f")) 
-		{
-		obj_file >> tmp;
 		}
 
+	while (tmp.compare("f")) 
+		obj_file >> tmp;
+
+
 	for (int i = 0; i < md->faces; i++)									// Get the face structure  
-	{
+		{
 		obj_file >> md->obj_faces[i].vtx[0];
 
 		obj_file >> tmp;
@@ -241,37 +250,36 @@ void ReadFile(model *md)
 		obj_file >> md->obj_faces[i].vtx[2];
 
 		if (i != (md->faces - 1))
-		{
-			while (tmp.compare("f"))
 			{
+			while (tmp.compare("f"))
 				obj_file >> tmp;
 			}
 		}
-	}
+		
 	obj_file.close();
-}
+	}
 
 
 void DisplayModel(model md)
-{
+	{
 	glPushMatrix();
 	glBegin(GL_TRIANGLES);
 
 	for (int i = 0; i < md.faces; i++)
-	{
+		{
 		glVertex3f(md.obj_points[md.obj_faces[i].vtx[0]-1].x,md.obj_points[md.obj_faces[i].vtx[0]-1].y,md.obj_points[md.obj_faces[i].vtx[0]-1].z);
 		glVertex3f(md.obj_points[md.obj_faces[i].vtx[1]-1].x,md.obj_points[md.obj_faces[i].vtx[1]-1].y,md.obj_points[md.obj_faces[i].vtx[1]-1].z);
 		glVertex3f(md.obj_points[md.obj_faces[i].vtx[2]-1].x,md.obj_points[md.obj_faces[i].vtx[2]-1].y,md.obj_points[md.obj_faces[i].vtx[2]-1].z);
-	}
+		}
 
 	glEnd();
 	glPopMatrix();
-}
+	}
 
 
 
 void solar_system(float rotationAngle, float transparency)
-{
+	{
 	// Create Sun
 	glColor4f(1.0, 0.9, 0.0, 1.0);								// Set yellow drawing colour with stable transparency
 	glutSolidSphere(12.0, 30, 24);
@@ -334,13 +342,13 @@ void solar_system(float rotationAngle, float transparency)
 	glColor3f(0.3, 0.2, 0.9);									// Set drawing colour
 	DisplayModel(md);
 	glPopMatrix();
-}
+	}
 
 
 void stars(float transparencyStars, float position[][3])
-{
-	for (int i = 0; i < 20; i++)
 	{
+	for (int i = 0; i < 20; i++)
+		{
 		// Create Star
 		glPushMatrix();
 		glTranslatef(position[i][0], position[i][1], position[i][2]);			// -100 < x < 100, -50 < y < 50, -50 < z < 50
@@ -354,5 +362,5 @@ void stars(float transparencyStars, float position[][3])
 		glColor4f(1.0, 1.0, 1.0, transparencyStars);                            // Set white drawing colour with changing transparency
 		glutSolidSphere(0.3, 30, 24);
 		glPopMatrix();
+		}
 	}
-}

@@ -4,24 +4,24 @@
 #define WHITE 4
 
 struct point 
-{
+	{
 	float x; 
 	float y; 
 	float z; 
-};
+	};
 
 struct face
-{
+	{
 	int vtx[3];
-};
+	};
 
 struct model
-{
+	{
 	point obj_points[9122];
 	face obj_faces[18240];
 	int vertices;
 	int faces;
-};
+	};
 
 
 //-------- Functions --------------------------------
