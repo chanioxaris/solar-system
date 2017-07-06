@@ -3,7 +3,7 @@
 A solar system implemented in OpenGL and GLUT. Inlcudes a sun as the center of the system, four rotating planets with different size and colors and some stars as the background. A .obj file is used to get the shape of planets.
 <br />
 
-With the following keys you can control the animation as described below:
+You can control the animation with specific keys, as described below:
 
 - "Q": Exit the program.
 - "P": Pause the animation.
