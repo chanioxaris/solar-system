@@ -1,6 +1,6 @@
 ## Overview
 
-A solar system implemented in OpenGL and GLUT. Inlcudes a sun as the center of the system, four rotating planets with different size and colors and some stars as the background. A .obj file is used to get the shape of planets.
+A solar system implemented in [OpenGL](https://www.opengl.org/) and [GLUT](http://freeglut.sourceforge.net/). Inlcudes a sun as the center of the system, four rotating planets with different size and colors and some stars as the background. An .obj file is used to form the shape of the planets.
 <br />
 
 You can control the animation with specific keys, as described below:
