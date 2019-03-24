@@ -35,7 +35,7 @@ float StarPos[20][3] = {
 	{13.0, -16.0, -12.0}, {67.0, -39.0, -34.0}, {17.0,  -45.0,  20.0}, {51.0,  -6.0,  -13.0}, {23.0,  -31.0,  9.0},
 	{-20.0, 23.0, -25.0},{ -50.0, 32.0, 34.0 },{ -40.0,  7.0,  -17.0 },{ -65.0,  20.0,  7.0 },{ -31.0,  40.0,  15.0 },
 	{-57.0, -18.0, -22.0},{ -50.0, -38.0, 19.0 },{ -65.0,  -3.0,  28.0 },{ -68.0, -38.0,  22.0 },{ -28.0, -25.0,  -5.0 }
-	};
+};
 
 
 void Render() {    
@@ -56,8 +56,8 @@ void Render() {
 
 
 		glutSwapBuffers();									// Buffer Swap									  
-		}	
-	}
+	}	
+}
 
 //-----------------------------------------------------------
 
@@ -74,7 +74,7 @@ void Resize(int w, int h) {
 	glLoadIdentity();
  
 	gluPerspective(60.0, (float)w/(float)h, 1.0, 500.0);
-	}
+}
 
 
 void Idle() {
@@ -89,14 +89,14 @@ void Idle() {
 				grow = 0;
 			else
 				grow = 1;
-			}
+		}
 		else {
 			transparency -= 0.002;
 			if (transparency > 0.0)
 				grow = 1;
 			else
 				grow = 0;
-			}
+		}
 
 		// Star brightness
 		if (growStars == 0) {
@@ -105,18 +105,18 @@ void Idle() {
 				growStars = 0;
 			else
 				growStars = 1;
-			}
+		}
 		else {
 			transparencyStars -= 0.001;
 			if (transparencyStars > 0.0)
 				growStars = 1;
 			else
 				growStars = 0;
-			}
+		}
 
 		glutPostRedisplay();
-		}
 	}
+}
 
 	
 void Keyboard(unsigned char key,int x,int y) {
@@ -141,9 +141,9 @@ void Keyboard(unsigned char key,int x,int y) {
 			break;
 		default : 
 			break;
-		}
-	glutPostRedisplay();
 	}
+	glutPostRedisplay();
+}
 
 
 void Setup() { 
@@ -185,7 +185,7 @@ void Setup() {
 
 	// Black background
 	glClearColor(0.0f,0.0f,0.0f,1.0f);
-	}
+}
 
 
 
@@ -201,7 +201,7 @@ void ReadFile(model *md) {
 	if (obj_file.fail())  {
 		cout << "Failed to open the file" << endl;
 		exit(1);
-		}
+	}
 
 	obj_file >> tmp;
 
@@ -215,7 +215,7 @@ void ReadFile(model *md) {
 		obj_file >> md->obj_points[i].z;
 		
 		obj_file >> tmp;
-		}
+	}
 
 	while (tmp.compare("f")) 
 		obj_file >> tmp;
@@ -235,11 +235,11 @@ void ReadFile(model *md) {
 		if (i != (md->faces - 1)) {
 			while (tmp.compare("f"))
 				obj_file >> tmp;
-			}
 		}
+	}
 		
 	obj_file.close();
-	}
+}
 
 
 void DisplayModel(model md) {
@@ -250,11 +250,11 @@ void DisplayModel(model md) {
 		glVertex3f(md.obj_points[md.obj_faces[i].vtx[0]-1].x,md.obj_points[md.obj_faces[i].vtx[0]-1].y,md.obj_points[md.obj_faces[i].vtx[0]-1].z);
 		glVertex3f(md.obj_points[md.obj_faces[i].vtx[1]-1].x,md.obj_points[md.obj_faces[i].vtx[1]-1].y,md.obj_points[md.obj_faces[i].vtx[1]-1].z);
 		glVertex3f(md.obj_points[md.obj_faces[i].vtx[2]-1].x,md.obj_points[md.obj_faces[i].vtx[2]-1].y,md.obj_points[md.obj_faces[i].vtx[2]-1].z);
-		}
+	}
 
 	glEnd();
 	glPopMatrix();
-	}
+}
 
 
 
@@ -339,5 +339,5 @@ void stars(float transparencyStars, float position[][3]) {
 		glColor4f(1.0, 1.0, 1.0, transparencyStars);                            // Set white drawing colour with changing transparency
 		glutSolidSphere(0.3, 30, 24);
 		glPopMatrix();
-		}
 	}
+}
