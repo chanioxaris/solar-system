@@ -30,19 +30,16 @@ static bool paused = false;
 // Stars positions
 float transparencyStars = 0.0f;
 int growStars = 0;
-float StarPos[20][3] =
-{
+float StarPos[20][3] = { 
 	{20.0,   5.0,   3.0 }, {80.0,  32.0, -30.0}, { 21.0,  23.0,  18.0 }, {40.0, 10.0, -8.0}, {8.0, 12.0,  36.0},
 	{13.0, -16.0, -12.0}, {67.0, -39.0, -34.0}, {17.0,  -45.0,  20.0}, {51.0,  -6.0,  -13.0}, {23.0,  -31.0,  9.0},
 	{-20.0, 23.0, -25.0},{ -50.0, 32.0, 34.0 },{ -40.0,  7.0,  -17.0 },{ -65.0,  20.0,  7.0 },{ -31.0,  40.0,  15.0 },
 	{-57.0, -18.0, -22.0},{ -50.0, -38.0, 19.0 },{ -65.0,  -3.0,  28.0 },{ -68.0, -38.0,  22.0 },{ -28.0, -25.0,  -5.0 }
-};
+	};
 
 
-void Render()
-	{    
-	if (!paused) 
-		{
+void Render() {    
+	if (!paused) {
 		//CLEARS FRAME BUFFER ie COLOR BUFFER& DEPTH BUFFER (1.0)
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);  // Clean up the colour of the window
 															 // and the depth buffer
@@ -64,8 +61,7 @@ void Render()
 
 //-----------------------------------------------------------
 
-void Resize(int w, int h)
-	{ 
+void Resize(int w, int h) { 
 	// define the visible area of the window ( in pixels )
 	if (h == 0) 
 		h = 1;
@@ -81,24 +77,20 @@ void Resize(int w, int h)
 	}
 
 
-void Idle()
-	{
-	if (!paused) 
-		{
+void Idle() {
+	if (!paused) {
 		// Planets Rotations
 		rotationAngle += 0.15;
 
 		// Sun brightness
-		if (grow == 0)
-			{
+		if (grow == 0) {
 			transparency += 0.002;
 			if (transparency < 1.0)
 				grow = 0;
 			else
 				grow = 1;
 			}
-		else
-			{
+		else {
 			transparency -= 0.002;
 			if (transparency > 0.0)
 				grow = 1;
@@ -107,16 +99,14 @@ void Idle()
 			}
 
 		// Star brightness
-		if (growStars == 0)
-			{
+		if (growStars == 0) {
 			transparencyStars += 0.1;
 			if (transparencyStars < 1.0)
 				growStars = 0;
 			else
 				growStars = 1;
 			}
-		else
-			{
+		else {
 			transparencyStars -= 0.001;
 			if (transparencyStars > 0.0)
 				growStars = 1;
@@ -129,10 +119,8 @@ void Idle()
 	}
 
 	
-void Keyboard(unsigned char key,int x,int y)
-	{
-	switch(key)
-		{
+void Keyboard(unsigned char key,int x,int y) {
+	switch(key) {
 		case 'q' : 
 			exit(0);
 			break;
@@ -158,8 +146,7 @@ void Keyboard(unsigned char key,int x,int y)
 	}
 
 
-void Setup()  
-	{ 
+void Setup() { 
 	ReadFile(&md);
 
 	//Parameter handling
@@ -202,8 +189,7 @@ void Setup()
 
 
 
-void ReadFile(model *md)
-	{
+void ReadFile(model *md) {
 	ifstream obj_file("planet.obj");								// Open the file for reading planet.TXT  
 
 	string tmp;
@@ -212,8 +198,7 @@ void ReadFile(model *md)
 	md->vertices = 9122;											// Get the number of vertices
 	md->faces = 18240;												// Get the number of faces
 
-	if (obj_file.fail()) 
-		{
+	if (obj_file.fail())  {
 		cout << "Failed to open the file" << endl;
 		exit(1);
 		}
@@ -224,8 +209,7 @@ void ReadFile(model *md)
 		obj_file >> tmp;
 
 
-	for (int i = 0; i < md->vertices ; i++)							// Get the vertex coordinates
-		{              
+	for (int i = 0; i < md->vertices ; i++)	{						// Get the vertex coordinates          
 		obj_file >> md->obj_points[i].x;
 		obj_file >> md->obj_points[i].y;
 		obj_file >> md->obj_points[i].z;
@@ -237,8 +221,7 @@ void ReadFile(model *md)
 		obj_file >> tmp;
 
 
-	for (int i = 0; i < md->faces; i++)									// Get the face structure  
-		{
+	for (int i = 0; i < md->faces; i++) {							// Get the face structure  
 		obj_file >> md->obj_faces[i].vtx[0];
 
 		obj_file >> tmp;
@@ -249,8 +232,7 @@ void ReadFile(model *md)
 
 		obj_file >> md->obj_faces[i].vtx[2];
 
-		if (i != (md->faces - 1))
-			{
+		if (i != (md->faces - 1)) {
 			while (tmp.compare("f"))
 				obj_file >> tmp;
 			}
@@ -260,13 +242,11 @@ void ReadFile(model *md)
 	}
 
 
-void DisplayModel(model md)
-	{
+void DisplayModel(model md) {
 	glPushMatrix();
 	glBegin(GL_TRIANGLES);
 
-	for (int i = 0; i < md.faces; i++)
-		{
+	for (int i = 0; i < md.faces; i++) {
 		glVertex3f(md.obj_points[md.obj_faces[i].vtx[0]-1].x,md.obj_points[md.obj_faces[i].vtx[0]-1].y,md.obj_points[md.obj_faces[i].vtx[0]-1].z);
 		glVertex3f(md.obj_points[md.obj_faces[i].vtx[1]-1].x,md.obj_points[md.obj_faces[i].vtx[1]-1].y,md.obj_points[md.obj_faces[i].vtx[1]-1].z);
 		glVertex3f(md.obj_points[md.obj_faces[i].vtx[2]-1].x,md.obj_points[md.obj_faces[i].vtx[2]-1].y,md.obj_points[md.obj_faces[i].vtx[2]-1].z);
@@ -278,8 +258,7 @@ void DisplayModel(model md)
 
 
 
-void solar_system(float rotationAngle, float transparency)
-	{
+void solar_system(float rotationAngle, float transparency) {
 	// Create Sun
 	glColor4f(1.0, 0.9, 0.0, 1.0);								// Set yellow drawing colour with stable transparency
 	glutSolidSphere(12.0, 30, 24);
@@ -291,7 +270,7 @@ void solar_system(float rotationAngle, float transparency)
 	glutSolidSphere(15.0, 30, 24);
 	glPopMatrix();
 
-
+	
 
 	// Create planet 1 - Bottom
 	glPushMatrix();
@@ -345,10 +324,8 @@ void solar_system(float rotationAngle, float transparency)
 	}
 
 
-void stars(float transparencyStars, float position[][3])
-	{
-	for (int i = 0; i < 20; i++)
-		{
+void stars(float transparencyStars, float position[][3]) {
+	for (int i = 0; i < 20; i++) {
 		// Create Star
 		glPushMatrix();
 		glTranslatef(position[i][0], position[i][1], position[i][2]);			// -100 < x < 100, -50 < y < 50, -50 < z < 50

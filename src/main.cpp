@@ -4,8 +4,7 @@
 #include "visuals.h"   
 
 
-int main(int argc, char* argv[])
-	{ 
+int main(int argc, char* argv[]) { 
 	// initialize GLUT library state
 	glutInit(&argc, argv);
 		
