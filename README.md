@@ -15,4 +15,4 @@ You can control the animation with specific keys, as described below:
 <br />
 
 
-![Solar system](https://github.com/chanioxaris/OpenGL-Solar-System/blob/master/img/solar.png)
+![Solar system](https://github.com/chanioxaris/solar-system/blob/master/img/solar.png)
